@@ -21,13 +21,14 @@ public class MainActivity extends AppCompatActivity implements SmartTextCallback
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String sampleText = getString(R.string.sample_text);
+
         mSmartTextView = (SmartTextView) findViewById(R.id.textView);
         mSmartTextView.setEmailColorCode("#3cb371");
-        String sampleText = getString(R.string.sample_text);
         mSmartTextView.setDetectMentions(true);
         mSmartTextView.setDetectHashTags(true);
         mSmartTextView.setText(sampleText);
-        mSmartTextView.setSmartTextCallback(this);
+        //mSmartTextView.setSmartTextCallback(this);
     }
 
     @Override

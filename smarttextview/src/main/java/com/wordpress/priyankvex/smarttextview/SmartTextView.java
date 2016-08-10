@@ -3,6 +3,7 @@ package com.wordpress.priyankvex.smarttextview;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -58,6 +59,7 @@ public class SmartTextView extends TextView {
         for (String word : words){
             Log.d("test", word);
             word = word.replace("\n", "");
+
             if (word.matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")){
                 // the word is email. Set the email span
                 int startIndex = text.indexOf(word);
@@ -68,6 +70,9 @@ public class SmartTextView extends TextView {
                     public void onClick(View widget) {
                         if (mSmartTextCallback == null){
                             Toast.makeText(mContext, "Email Clicked", Toast.LENGTH_SHORT).show();
+                            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                    "mailto",finalWord, null));
+                            mContext.startActivity(Intent.createChooser(emailIntent, "Send Email"));
                         }
                         else{
                             mSmartTextCallback.emailClick(finalWord);
