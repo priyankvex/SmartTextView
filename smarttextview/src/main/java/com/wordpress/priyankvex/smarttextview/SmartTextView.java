@@ -69,7 +69,6 @@ public class SmartTextView extends TextView {
                     @Override
                     public void onClick(View widget) {
                         if (mSmartTextCallback == null){
-                            Toast.makeText(mContext, "Email Clicked", Toast.LENGTH_SHORT).show();
                             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                                     "mailto",finalWord, null));
                             mContext.startActivity(Intent.createChooser(emailIntent, "Send Email"));
@@ -88,10 +87,18 @@ public class SmartTextView extends TextView {
                 // word is a URL
                 int startIndex = text.indexOf(word);
                 int endIndex = startIndex + word.length();
+                final String finalWord1 = word.startsWith("http://") || word.startsWith("https://") ? word : "http://" + word;
                 ClickableSpan urlClickSpan = new ClickableSpan() {
                     @Override
                     public void onClick(View widget) {
-                        Toast.makeText(mContext, "Url Clicked", Toast.LENGTH_SHORT).show();
+                        if (mSmartTextCallback == null){
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(finalWord1));
+                            mContext.startActivity(i);
+                        }
+                        else{
+                            mSmartTextCallback.webUrlClick(finalWord1);
+                        }
                     }
                 };
                 ForegroundColorSpan urlColorSpan = new ForegroundColorSpan(Color.parseColor(mUrlColorCode));
