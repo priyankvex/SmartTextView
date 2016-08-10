@@ -110,10 +110,18 @@ public class SmartTextView extends TextView {
                 // word is a phone number
                 int startIndex = text.indexOf(word);
                 int endIndex = startIndex + word.length();
+                final String finalWord2 = word;
                 ClickableSpan numberClickSpan = new ClickableSpan() {
                     @Override
                     public void onClick(View widget) {
-                        Toast.makeText(mContext, "Phone Number Clicked", Toast.LENGTH_SHORT).show();
+                        if (mSmartTextCallback == null){
+                            Intent intent = new Intent(Intent.ACTION_DIAL);
+                            intent.setData(Uri.parse("tel:" + finalWord2));
+                            mContext.startActivity(intent);
+                        }
+                        else{
+                            mSmartTextCallback.phoneNumberClick(finalWord2);
+                        }
                     }
                 };
                 ForegroundColorSpan numberColorSpan = new ForegroundColorSpan(Color.parseColor(mPhoneNumberColorCode));
@@ -125,9 +133,16 @@ public class SmartTextView extends TextView {
                 // word is a mention
                 int startIndex = text.indexOf(word);
                 int endIndex = startIndex + word.length();
+                final String finalWord3 = word;
                 ClickableSpan mentionClickSpan = new ClickableSpan() {
                     @Override
                     public void onClick(View widget) {
+                        if (mSmartTextCallback == null){
+                            Log.e("test", "Implement and set setSmartTextCallback in your activity/fragment");
+                        }
+                        else{
+                            mSmartTextCallback.mentionClick(finalWord3);
+                        }
                         Toast.makeText(mContext, "Mention Clicked", Toast.LENGTH_SHORT).show();
                     }
                 };
