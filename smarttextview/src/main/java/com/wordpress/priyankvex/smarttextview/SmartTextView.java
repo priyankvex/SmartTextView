@@ -27,7 +27,11 @@ public class SmartTextView extends TextView {
     private String mEmailColorCode;
     private String mUrlColorCode;
     private String mPhoneNumberColorCode;
+    private String mMentionColorCode;
+    private String mHashTagColorCode;
     private SmartTextCallback mSmartTextCallback;
+    private boolean detectMentions = false;
+    private boolean detectHashTags = false;
 
     public SmartTextView(Context context){
         super(context);
@@ -40,6 +44,8 @@ public class SmartTextView extends TextView {
         this.mEmailColorCode = "#3344ff";
         this.mUrlColorCode = "#3344ff";
         this.mPhoneNumberColorCode = "#3344ff";
+        this.mMentionColorCode = "#3344ff";
+        this.mHashTagColorCode = "#3344ff";
     }
 
     public void setText(String text){
@@ -103,6 +109,21 @@ public class SmartTextView extends TextView {
                 ss.setSpan(numberColorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 Log.d("test", "Phone Number matched" + startIndex + " : " + endIndex);
             }
+            else if (detectMentions && word.startsWith("@")){
+                // word is a phone number
+                int startIndex = text.indexOf(word);
+                int endIndex = startIndex + word.length();
+                ClickableSpan mentionClickSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        Toast.makeText(mContext, "Mention Clicked", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                ForegroundColorSpan mentionColorSpan = new ForegroundColorSpan(Color.parseColor(mMentionColorCode));
+                ss.setSpan(mentionClickSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ss.setSpan(mentionColorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                Log.d("test", "Mention matched" + startIndex + " : " + endIndex);
+            }
         }
 
         super.setText(ss);
@@ -122,7 +143,15 @@ public class SmartTextView extends TextView {
         this.mPhoneNumberColorCode = phoneNumberColorCode;
     }
 
-    public void setmSmartTextCallback(SmartTextCallback mSmartTextCallback) {
+    public void setSmartTextCallback(SmartTextCallback mSmartTextCallback) {
         this.mSmartTextCallback = mSmartTextCallback;
+    }
+
+    public void detectMentions(boolean value){
+        this.detectMentions = value;
+    }
+
+    public void setDetectHashTags(boolean value){
+        this.detectHashTags = value;
     }
 }
