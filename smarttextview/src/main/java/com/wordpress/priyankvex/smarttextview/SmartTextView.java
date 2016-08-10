@@ -138,12 +138,11 @@ public class SmartTextView extends TextView {
                     @Override
                     public void onClick(View widget) {
                         if (mSmartTextCallback == null){
-                            Log.e("test", "Implement and set setSmartTextCallback in your activity/fragment");
+                            Log.e("test", "Implement SmartTextCallback and set setSmartTextCallback(this) in your activity/fragment");
                         }
                         else{
                             mSmartTextCallback.mentionClick(finalWord3);
                         }
-                        Toast.makeText(mContext, "Mention Clicked", Toast.LENGTH_SHORT).show();
                     }
                 };
                 ForegroundColorSpan mentionColorSpan = new ForegroundColorSpan(Color.parseColor(mMentionColorCode));
@@ -155,10 +154,16 @@ public class SmartTextView extends TextView {
                 // word is a hash tag
                 int startIndex = text.indexOf(word);
                 int endIndex = startIndex + word.length();
+                final String finalWord4 = word;
                 ClickableSpan hashTagClickSpan = new ClickableSpan() {
                     @Override
                     public void onClick(View widget) {
-                        Toast.makeText(mContext, "HashTag Clicked", Toast.LENGTH_SHORT).show();
+                        if (mSmartTextCallback == null){
+                            Log.e("test", "Implement SmartTextCallback and set setSmartTextCallback(this) in your activity/fragment");
+                        }
+                        else{
+                            mSmartTextCallback.hashTagClick(finalWord4);
+                        }
                     }
                 };
                 ForegroundColorSpan hashTagColorSpan = new ForegroundColorSpan(Color.parseColor(mHashTagColorCode));

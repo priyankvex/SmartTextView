@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements SmartTextCallback
         mSmartTextView.setDetectMentions(true);
         mSmartTextView.setDetectHashTags(true);
         mSmartTextView.setText(sampleText);
-        //mSmartTextView.setSmartTextCallback(this);
+        mSmartTextView.setSmartTextCallback(this);
     }
 
     @Override
