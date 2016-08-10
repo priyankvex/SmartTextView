@@ -109,8 +109,8 @@ public class SmartTextView extends TextView {
                 ss.setSpan(numberColorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 Log.d("test", "Phone Number matched" + startIndex + " : " + endIndex);
             }
-            else if (detectMentions && word.startsWith("@")){
-                // word is a phone number
+            else if (detectMentions && word.startsWith("@") && word.length() >= 2){
+                // word is a mention
                 int startIndex = text.indexOf(word);
                 int endIndex = startIndex + word.length();
                 ClickableSpan mentionClickSpan = new ClickableSpan() {
@@ -123,6 +123,21 @@ public class SmartTextView extends TextView {
                 ss.setSpan(mentionClickSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ss.setSpan(mentionColorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 Log.d("test", "Mention matched" + startIndex + " : " + endIndex);
+            }
+            else if (detectHashTags && word.startsWith("#") && word.length() >= 2){
+                // word is a hash tag
+                int startIndex = text.indexOf(word);
+                int endIndex = startIndex + word.length();
+                ClickableSpan hashTagClickSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        Toast.makeText(mContext, "HashTag Clicked", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                ForegroundColorSpan hashTagColorSpan = new ForegroundColorSpan(Color.parseColor(mHashTagColorCode));
+                ss.setSpan(hashTagClickSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ss.setSpan(hashTagColorSpan, startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                Log.d("test", "Hash tag matched" + startIndex + " : " + endIndex);
             }
         }
 
@@ -147,7 +162,7 @@ public class SmartTextView extends TextView {
         this.mSmartTextCallback = mSmartTextCallback;
     }
 
-    public void detectMentions(boolean value){
+    public void setDetectMentions(boolean value){
         this.detectMentions = value;
     }
 

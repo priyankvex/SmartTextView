@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity implements SmartTextCallback
         mSmartTextView = (SmartTextView) findViewById(R.id.textView);
         mSmartTextView.setEmailColorCode("#3cb371");
         String sampleText = getString(R.string.sample_text);
-        mSmartTextView.detectMentions(true);
+        mSmartTextView.setDetectMentions(true);
+        mSmartTextView.setDetectHashTags(true);
         mSmartTextView.setText(sampleText);
         mSmartTextView.setSmartTextCallback(this);
     }
