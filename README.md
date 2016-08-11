@@ -2,7 +2,7 @@
 A smart TextView for android that detects #hashtags, @mentions, URLs, emails, phone numbers and more.
 
 
-![device-2016-08-11-181532.png](https://s10.postimg.org/pkzhwq3ah/device_2016_08_11_181532.png)
+![device-2016-08-11-181532.png](https://s10.postimg.org/wvsifbftl/device_2016_08_11_181532.png)
 
 <h1>Features</h1>
 
