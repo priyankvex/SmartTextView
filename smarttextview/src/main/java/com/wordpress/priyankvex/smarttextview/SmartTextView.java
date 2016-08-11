@@ -190,6 +190,14 @@ public class SmartTextView extends TextView {
         this.mPhoneNumberColorCode = phoneNumberColorCode;
     }
 
+    public void setHashTagColorCode(String hashTagColorCode){
+        this.mHashTagColorCode = hashTagColorCode;
+    }
+
+    public void setMentionColorCode(String mentionColorCode){
+        this.mMentionColorCode = mentionColorCode;
+    }
+
     public void setSmartTextCallback(SmartTextCallback mSmartTextCallback) {
         this.mSmartTextCallback = mSmartTextCallback;
     }
