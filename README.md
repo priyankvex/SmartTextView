@@ -16,6 +16,10 @@ A smart TextView for android that detects #hashtags, @mentions, URLs, emails, ph
 
 <h1>Usage</h1>
 
+```gradle
+compile 'com.priyankvex:smarttextview:1.0.1'
+```
+
 In layout xml file 
 
 ```xml
